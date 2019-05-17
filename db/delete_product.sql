@@ -1,0 +1,1 @@
+DELETE from product where product_it = $1;
