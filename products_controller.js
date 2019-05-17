@@ -10,21 +10,23 @@ module.exports = {
         })
     },
     getOne: (req, res, next) => {
-        const db = req.app.get('db')
-        const {id} = req.body
-        db.read_product(id).then(product => res.status(200).send(product))
-        .catch( err => {
+        const db = req.app.get('db');
+        const { id } = req.params;
+    
+        db.read_product(id)
+          .then(product => res.status(200).send(product))
+          .catch(err => {
         res.status(500).send({errorMessage: 'Oh No Something is broken'})
         console.log(err)
         })
     },
     getAll: (req, res, next) => {
-        console.log('hello')
-        const db = req.app.get('db')
-        
-        db.read_products().then(products => { 
-            res.status(200).send(products)})
-        .catch( err => {
+     
+        const db = req.app.get('db');
+
+        db.read_products()
+          .then(products => res.status(200).send(products))
+          .catch(err => {
         res.status(500).send({errorMessage: 'Oh No Something is broken'})
         console.log(err)
         })
@@ -39,9 +41,11 @@ module.exports = {
         })
     },
     delete: (req, res, next) => {
+       
         const db = req.app.get('db')
-        const {id} = req.params
-        db.delete_product(id).then(product => res.sendStatus(200))
+        const { id } = req.params
+        db.delete_product( id )
+        .then( () => res.sendStatus(200) )
         .catch( err => {
         res.status(500).send({errorMessage: 'Oh No Something is broken'})
         console.log(err)
